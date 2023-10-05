@@ -1,5 +1,7 @@
-import {Component} from 'react'
+// import {Component} from 'react'
 import './index.css'
+
+const jobLocations = ['Hyderabad', 'Bangalore', 'Chennai', 'Delhi', 'Mumbai']
 
 const FilterGroup = props => {
   const renderEmploymentTypes = () => {
@@ -15,6 +17,25 @@ const FilterGroup = props => {
               onChange={updateEmploymentType}
             />
             <label htmlFor={eachType.employmentTypeId}>{eachType.label}</label>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+
+  const renderJobLocations = () => {
+    const {updateJobLocation} = props
+    return (
+      <ul className="employment-type-list-container">
+        {jobLocations.map(eachLocation => (
+          <li key={eachLocation}>
+            <input
+              type="checkbox"
+              id={eachLocation}
+              name={eachLocation.toUpperCase()}
+              onChange={updateJobLocation}
+            />
+            <label htmlFor={eachLocation}>{eachLocation}</label>
           </li>
         ))}
       </ul>
@@ -49,6 +70,9 @@ const FilterGroup = props => {
       <hr className="separator" />
       <h1>Salary Range</h1>
       {renderSalaryRanges()}
+      <hr className="separator" />
+      <h1>Job Locations</h1>
+      {renderJobLocations()}
     </div>
   )
 }

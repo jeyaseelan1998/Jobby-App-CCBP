@@ -61,6 +61,11 @@ const initialState = {
   PARTTIME: false,
   FREELANCE: false,
   INTERNSHIP: false,
+  HYDERABAD: false,
+  BANGALORE: false,
+  CHENNAI: false,
+  DELHI: false,
+  MUMBAI: false,
 }
 
 class Jobs extends Component {
@@ -80,6 +85,11 @@ class Jobs extends Component {
   updateEmploymentType = event => {
     const {name, checked} = event.target
     this.setState({[name]: checked}, this.getJobsList)
+  }
+
+  updateJobLocation = event => {
+    const {name, checked} = event.target
+    this.setState({[name]: checked})
   }
 
   updateMinimumPackage = event => {
@@ -131,13 +141,15 @@ class Jobs extends Component {
   getFormattedEmploymentQuery = () => {
     const {FULLTIME, PARTTIME, FREELANCE, INTERNSHIP} = this.state
 
-    let employmentTypeString = `${FULLTIME ? 'FULLTIME,' : ''}${
-      PARTTIME ? 'PARTTIME,' : ''
-    }${FREELANCE ? 'FREELANCE,' : ''}${INTERNSHIP ? 'INTERNSHIP,' : ''}`
-    employmentTypeString = employmentTypeString.slice(
-      0,
-      employmentTypeString.length - 1,
-    )
+    const employmentTypeArray = [
+      FULLTIME ? 'FULLTIME' : '',
+      PARTTIME ? 'PARTTIME' : '',
+      FREELANCE ? 'FREELANCE' : '',
+      INTERNSHIP ? 'INTERNSHIP' : '',
+    ].filter(str => str !== '')
+
+    const employmentTypeString = employmentTypeArray.join(',')
+
     return employmentTypeString
   }
 
@@ -199,11 +211,27 @@ class Jobs extends Component {
   }
 
   renderJobItemsList = () => {
-    const {jobsList} = this.state
+    const {jobsList, HYDERABAD, BANGALORE, CHENNAI, DELHI, MUMBAI} = this.state
+
+    const locationsArray = [
+      HYDERABAD ? 'HYDERABAD' : '',
+      BANGALORE ? 'BANGALORE' : '',
+      CHENNAI ? 'CHENNAI' : '',
+      DELHI ? 'DELHI' : '',
+      MUMBAI ? 'MUMBAI' : '',
+    ]
+
+    let filteredJobsList = jobsList.filter(eachJob =>
+      locationsArray.includes(eachJob.location.toUpperCase()),
+    )
+
+    if (filteredJobsList.length === 0) {
+      filteredJobsList = jobsList
+    }
 
     return (
       <ul className="jobs-list-items-container">
-        {jobsList.map(eachJob => (
+        {filteredJobsList.map(eachJob => (
           <JobItem jobDetails={eachJob} key={eachJob.id} />
         ))}
       </ul>
@@ -276,6 +304,7 @@ class Jobs extends Component {
               employmentTypesList={employmentTypesList}
               salaryRangesList={salaryRangesList}
               updateMinimumPackage={this.updateMinimumPackage}
+              updateJobLocation={this.updateJobLocation}
             />
           </div>
           <div className="search-job-items-container">

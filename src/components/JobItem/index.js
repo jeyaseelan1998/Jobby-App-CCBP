@@ -1,9 +1,8 @@
-// import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {AiFillStar} from 'react-icons/ai'
 import {MdLocationOn} from 'react-icons/md'
 import {BsBriefcaseFill} from 'react-icons/bs'
 
-import {Link} from 'react-router-dom/cjs/react-router-dom.min'
 import './index.css'
 
 const JobItem = props => {

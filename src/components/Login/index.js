@@ -1,7 +1,6 @@
 import React from 'react'
 import Cookies from 'js-cookie'
-// import {Redirect } from 'react-router-dom'
-import {Redirect} from 'react-router-dom/cjs/react-router-dom.min'
+import {Redirect} from 'react-router-dom'
 
 import './index.css'
 

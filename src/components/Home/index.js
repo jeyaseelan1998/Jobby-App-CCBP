@@ -1,5 +1,7 @@
 import {Link} from 'react-router-dom/cjs/react-router-dom.min'
+
 import Header from '../Header'
+
 import './index.css'
 
 const Home = () => (
